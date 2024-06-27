@@ -74,4 +74,90 @@
         // Assert
         Assert.Equal(0, value);
     }
+
+    [Fact]
+    public void FluentRating_ReadOnlyTrue()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRating MaxValue="10" Value="2" ReadOnly="true"/>);
+
+        cut.FindAll("svg").ElementAt(1).Click();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentRating_ReadOnlyFalse()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRating MaxValue="10" Value="2" ReadOnly="false" />);
+
+        cut.FindAll("svg").ElementAt(1).Click();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentRating_DisabledTrue()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRating MaxValue="10" Value="2" Disabled="true" />);
+
+        cut.FindAll("svg").ElementAt(1).Click();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentRating_DisabledFalse()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRating MaxValue="10" Value="2" Disabled="false" />);
+
+        cut.FindAll("svg").ElementAt(1).Click();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentRating_PointerOut()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRating MaxValue="10" Value="2" Disabled="false" />);
+
+        cut.FindAll("svg").ElementAt(3).PointerOut();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentRating_PointerOver()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRating MaxValue="10" Value="2" Disabled="false" />);
+
+        cut.FindAll("svg").ElementAt(1).PointerOver();
+
+        // Assert
+        cut.Verify();
+    }
+
+    [Fact]
+    public void FluentRating_KeyDown()
+    {
+        // Arrange && Act
+        var cut = Render(@<FluentRating MaxValue="10" Value="2" Disabled="false" />);
+        cut.FindAll("svg").ElementAt(2).KeyDown(key: Key.Left);
+        cut.FindAll("svg").ElementAt(1).KeyDown(key: Key.Right);
+        cut.FindAll("svg").ElementAt(2).KeyDown(key: Key.Up);
+        cut.FindAll("svg").ElementAt(1).KeyDown(key: Key.Down);
+
+        // Assert
+        cut.Verify();
+    }
 }
